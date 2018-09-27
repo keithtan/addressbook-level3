@@ -50,6 +50,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |add a new person |
 |`* * *` |user |delete a person |remove entries that I no longer need
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |list all persons | view all the persons' details in my address book
 |`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |===========================================================================================================================================
@@ -81,6 +82,24 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+=== Use case: Rename tag
+
+*MSS*
+
+. User requests to rename an existing tag
+. AddressBook send confirmation
+. User confirms
+. AddressBook confirms the change and renames the tag
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The given tag is invalid.
+** 2a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
 [appendix]
 == Non Functional Requirements
 
@@ -88,6 +107,7 @@ Use case resumes at step 2.
 . Should be able to hold up to 1000 persons.
 . Should come with automated unit tests and open source code.
 . Should favor DOS style commands over Unix-style commands.
+. Should respond within two seconds.
 
 [appendix]
 == Glossary

@@ -14,10 +14,10 @@ import java.util.Optional;
 /**
  * Represents the main Logic of the AddressBook.
  */
-public class Logic {
+public class Logic extends Storage {
 
 
-    private StorageFile storage;
+    private Storage storage;
     private AddressBook addressBook;
 
     /** The list of person shown to the user most recently.  */
@@ -25,31 +25,35 @@ public class Logic {
 
     public Logic() throws Exception{
         setStorage(initializeStorage());
-        setAddressBook(storage.load());
+        setAddressBook(load());
     }
 
-    Logic(StorageFile storageFile, AddressBook addressBook){
-        setStorage(storageFile);
+    Logic(Storage storage, AddressBook addressBook) throws InvalidStorageFilePathException {
+        setStorage(storage);
         setAddressBook(addressBook);
     }
 
-    void setStorage(StorageFile storage){
+    public AddressBook load() throws Storage.StorageOperationException{
+        return storage.load();
+    }
+
+    private void setStorage(Storage storage){
         this.storage = storage;
     }
 
-    void setAddressBook(AddressBook addressBook){
+    private void setAddressBook(AddressBook addressBook){
         this.addressBook = addressBook;
     }
 
     /**
-     * Creates the StorageFile object based on the user specified path (if any) or the default storage path.
-     * @throws StorageFile.InvalidStorageFilePathException if the target file path is incorrect.
+     * Creates the Storage object based on the user specified path (if any) or the default storage path.
+     * @throws Storage.InvalidStorageFilePathException if the target file path is incorrect.
      */
-    private StorageFile initializeStorage() throws StorageFile.InvalidStorageFilePathException {
+    private Storage initializeStorage() throws Storage.InvalidStorageFilePathException {
         return new StorageFile();
     }
 
-    public String getStorageFilePath() {
+    public String getPath() {
         return storage.getPath();
     }
 
@@ -85,10 +89,12 @@ public class Logic {
     private CommandResult execute(Command command) throws Exception {
         command.setData(addressBook, lastShownList);
         CommandResult result = command.execute();
-        if (command.isMutating()) {
-            storage.save(addressBook);
-        }
+        save(addressBook);
         return result;
+    }
+
+    public void save(AddressBook addressBook) throws Storage.StorageOperationException{
+        storage.save(addressBook);
     }
 
     /** Updates the {@link #lastShownList} if the result contains a list of Persons. */

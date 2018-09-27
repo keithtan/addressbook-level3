@@ -5,7 +5,6 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.parser.Parser;
-import seedu.addressbook.storage.StorageFile;
 
 import java.util.Collections;
 import java.util.List;

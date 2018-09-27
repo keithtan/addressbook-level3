@@ -23,8 +23,12 @@ public class Logic extends Storage {
     /** The list of person shown to the user most recently.  */
     private List<? extends ReadOnlyPerson> lastShownList = Collections.emptyList();
 
-    public Logic() throws Exception{
-        setStorage(initializeStorage());
+    /**
+     * Creates the Storage object based on the user specified path (if any) or the default storage path.
+     * @throws Storage.InvalidStorageFilePathException if the target file path is incorrect.
+     */
+    public Logic(Storage storage) throws Exception{
+        this.storage = storage;
         setAddressBook(load());
     }
 
@@ -43,14 +47,6 @@ public class Logic extends Storage {
 
     private void setAddressBook(AddressBook addressBook){
         this.addressBook = addressBook;
-    }
-
-    /**
-     * Creates the Storage object based on the user specified path (if any) or the default storage path.
-     * @throws Storage.InvalidStorageFilePathException if the target file path is incorrect.
-     */
-    private Storage initializeStorage() throws Storage.InvalidStorageFilePathException {
-        return new StorageFile();
     }
 
     public String getPath() {

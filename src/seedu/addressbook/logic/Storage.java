@@ -5,6 +5,8 @@ import seedu.addressbook.data.exception.IllegalValueException;
 
 public abstract class Storage {
 
+    /** Default file path used if the user doesn't provide the file name. */
+    public static final String DEFAULT_STORAGE_FILEPATH = "addressbook.txt";
 
     public abstract AddressBook load() throws StorageOperationException;
 
